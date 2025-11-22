@@ -1,6 +1,10 @@
 <template>
   <div class="login-page">
-    <!-- Fondo con overlay -->
+    <!-- Fondos con transición -->
+    <div class="background-image background-1"></div>
+    <div class="background-image background-2"></div>
+
+    <!-- Overlay oscuro -->
     <div class="background-overlay"></div>
 
     <!-- Card glassmorphism -->
@@ -128,18 +132,46 @@ const login = async () => {
 </script>
 
 <style scoped lang="scss">
+@keyframes fadeInOut {
+  0%,
+  100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0;
+  }
+}
+
 .login-page {
   position: relative;
   width: 100%;
   height: 100vh;
-  background-image: url('@/assets/digimon-background-ifqffin4g94gi7d2.jpg');
-  background-size: cover;
-  background-position: center;
-  background-repeat: no-repeat;
   display: flex;
   align-items: center;
   justify-content: center;
   overflow: hidden;
+}
+
+.background-image {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+
+.background-1 {
+  background-image: url('@/assets/digimon-background-ifqffin4g94gi7d2.jpg');
+  animation: fadeInOut 6s ease-in-out infinite;
+  z-index: 0;
+}
+
+.background-2 {
+  background-image: url('@/assets/the-digimon-adventure-tri-family-bg2jhentpwcmsu04.jpg');
+  z-index: 1;
 }
 
 .background-overlay {
@@ -149,12 +181,12 @@ const login = async () => {
   width: 100%;
   height: 100%;
   background-color: rgba(0, 0, 0, 0.35);
-  z-index: 0;
+  z-index: 2;
 }
 
 .login-container {
   position: relative;
-  z-index: 1;
+  z-index: 3;
   width: 100%;
   max-width: 420px;
   padding: 20px;
