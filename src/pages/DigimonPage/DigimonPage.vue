@@ -1,9 +1,12 @@
 <template>
-  <q-page class="digimon-page">
+  <q-page class="digimon-page" :style="{ backgroundImage: `url(${backgroundImage})` }">
     <div class="page-container">
       <!-- Título y descripción -->
       <div class="header-section">
-        <h1 class="page-title">Listado de Digimons</h1>
+        <h1 class="page-title">
+          <q-icon name="catching_pokemon" size="48px" class="q-mr-sm" />
+          Listado de Digimons
+        </h1>
         <p class="page-subtitle">
           Explora la base de datos completa de Digimons. Puedes filtrar por nombre y nivel.
         </p>
@@ -122,6 +125,7 @@
 <script>
 import { ref, computed, onMounted } from 'vue'
 import axios from 'axios'
+import digimonBackground from 'src/assets/digimonLAyer.png'
 
 export default {
   name: 'DigimonPage',
@@ -135,6 +139,9 @@ export default {
     // ===== FILTROS =====
     const filterName = ref('') // Filtro por nombre
     const filterLevel = ref(null) // Filtro por nivel
+
+    // ===== IMAGEN DE FONDO =====
+    const backgroundImage = digimonBackground
 
     // ===== LLAMADA A LA API =====
     const fetchDigimons = async () => {
@@ -213,7 +220,8 @@ export default {
       levelOptions,
       filteredDigimons,
       fetchDigimons,
-      getLevelColor
+      getLevelColor,
+      backgroundImage
     }
   }
 }
@@ -222,45 +230,75 @@ export default {
 <style scoped>
 /* ===== CONTENEDOR PRINCIPAL ===== */
 .digimon-page {
-  background-color: #f5f5f5;
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
   min-height: 100vh;
-  padding: 20px;
+  padding: 30px 20px;
+  position: relative;
+}
+
+.digimon-page::before {
+  content: '';
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(255, 255, 255, 0.25);
+  pointer-events: none;
+  z-index: 0;
 }
 
 .page-container {
+  position: relative;
+  z-index: 1;
   max-width: 1400px;
   margin: 0 auto;
-  background-color: white;
-  padding: 30px;
-  border-radius: 12px;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  background-color: rgba(255, 255, 255, 0.85);
+  padding: 50px 40px;
+  border-radius: 20px;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.15);
+  backdrop-filter: blur(10px);
 }
 
 /* ===== HEADER ===== */
 .header-section {
   text-align: center;
-  margin-bottom: 30px;
+  margin-bottom: 40px;
 }
 
 .page-title {
-  font-size: 2.5rem;
-  font-weight: bold;
-  color: #1976d2;
-  margin: 0 0 10px 0;
+  font-size: 3rem;
+  font-weight: 800;
+  color: #1565c0;
+  margin: 0 0 16px 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  letter-spacing: -0.5px;
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
 .page-subtitle {
-  font-size: 1.1rem;
-  color: #666;
+  font-size: 1.15rem;
+  color: #616161;
   margin: 0;
+  line-height: 1.8;
+  max-width: 700px;
+  margin: 0 auto;
+  font-weight: 400;
 }
 
 /* ===== FILTROS ===== */
 .filters-section {
-  margin-bottom: 30px;
-  padding: 20px;
-  background-color: #f9f9f9;
-  border-radius: 8px;
+  margin-bottom: 40px;
+  padding: 28px;
+  background-color: rgba(245, 247, 250, 0.7);
+  border-radius: 16px;
+  backdrop-filter: blur(8px);
+  border: 1px solid rgba(21, 101, 192, 0.1);
 }
 
 /* ===== ESTADOS (CARGA, ERROR, SIN RESULTADOS) ===== */
@@ -284,15 +322,18 @@ export default {
   height: 100%;
   transition: transform 0.3s ease, box-shadow 0.3s ease;
   cursor: pointer;
+  background-color: rgba(255, 255, 255, 0.85);
+  backdrop-filter: blur(5px);
 }
 
 .digimon-card:hover {
   transform: translateY(-5px);
-  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.15);
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.25);
+  background-color: rgba(255, 255, 255, 0.95);
 }
 
 .digimon-image {
-  background-color: #f5f5f5;
+  background-color: rgba(245, 245, 245, 0.5);
 }
 
 .digimon-name {
@@ -311,15 +352,20 @@ export default {
 /* ===== RESPONSIVIDAD ===== */
 @media (max-width: 599px) {
   .page-container {
-    padding: 20px 15px;
+    padding: 30px 20px;
   }
 
   .page-title {
-    font-size: 1.8rem;
+    font-size: 2.2rem;
   }
 
   .page-subtitle {
     font-size: 1rem;
+    line-height: 1.6;
+  }
+
+  .filters-section {
+    padding: 20px;
   }
 }
 </style>

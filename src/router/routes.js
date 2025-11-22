@@ -3,15 +3,15 @@ const routes = [
     path: '/',
     component: () => import('layouts/MainLayout.vue'),
     children: [
-      // Página inicial (IndexPage)
+      // Página principal: DigimonPage
       { 
         path: '', 
-        component: () => import('pages/IndexPage.vue') 
-      },
-      // Página de Digimons (tu parte)
-      { 
-        path: 'digimons', 
         component: () => import('pages/DigimonPage/DigimonPage.vue') 
+      },
+      // Página de índice (opcional)
+      { 
+        path: 'index', 
+        component: () => import('pages/IndexPage.vue') 
       }
     ],
   },
