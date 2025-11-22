@@ -28,15 +28,35 @@
 </template>
 
 <script>
+import { useRouter } from 'vue-router'
+import { useQuasar } from 'quasar'
+
 export default {
   name: 'MainLayout',
 
-  methods: {
-    // Función placeholder para cerrar sesión
-    // Tu compañera puede implementar la lógica aquí
-    handleLogout() {
-      console.log('Cerrar sesión - Implementar lógica aquí')
-      // Ejemplo: this.$router.push('/login')
+  setup() {
+    const router = useRouter()
+    const $q = useQuasar()
+
+    const handleLogout = () => {
+      // Limpiar datos de sesión
+      localStorage.removeItem('token')
+      localStorage.removeItem('isLogged')
+
+      // Notificación de cierre de sesión
+      $q.notify({
+        type: 'info',
+        message: 'Sesión cerrada correctamente',
+        position: 'top',
+        timeout: 1500,
+      })
+
+      // Redirigir al login
+      router.push('/login')
+    }
+
+    return {
+      handleLogout
     }
   }
 }

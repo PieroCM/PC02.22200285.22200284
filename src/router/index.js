@@ -38,11 +38,16 @@ export default defineRouter(function (/* { store, ssrContext } */) {
     const isLogged = localStorage.getItem('isLogged') === 'true'
     const requiresAuth = to.matched.some((record) => record.meta.requiresAuth)
 
-    if (requiresAuth && !isLogged) {
-      // Si la ruta requiere autenticación y no está logueado, redirigir a login
+    // Si está logueado y va al login, redirigir a digimons
+    if (to.path === '/login' && isLogged) {
+      next('/digimons')
+    }
+    // Si la ruta requiere autenticación y no está logueado, redirigir a login
+    else if (requiresAuth && !isLogged) {
       next('/login')
-    } else {
-      // Permitir navegación libremente
+    }
+    // Permitir navegación
+    else {
       next()
     }
   })

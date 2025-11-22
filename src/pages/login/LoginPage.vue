@@ -1,8 +1,8 @@
 <template>
   <div class="login-page">
     <!-- Fondos con transición -->
-    <div class="background-image background-1"></div>
-    <div class="background-image background-2"></div>
+    <div class="background-image background-1" :style="{ backgroundImage: `url(${background1})` }"></div>
+    <div class="background-image background-2" :style="{ backgroundImage: `url(${background2})` }"></div>
 
     <!-- Overlay oscuro -->
     <div class="background-overlay"></div>
@@ -74,6 +74,8 @@ import { ref } from 'vue'
 import { useRouter } from 'vue-router'
 import { useQuasar } from 'quasar'
 import { api } from 'boot/axios'
+import background1 from 'src/assets/digimon-background-ifqffin4g94gi7d2.jpg'
+import background2 from 'src/assets/the-digimon-adventure-tri-family-bg2jhentpwcmsu04.jpg'
 
 const router = useRouter()
 const $q = useQuasar()
@@ -142,6 +144,16 @@ const login = async () => {
   }
 }
 
+@keyframes fadeInOutReverse {
+  0%,
+  100% {
+    opacity: 0;
+  }
+  50% {
+    opacity: 1;
+  }
+}
+
 .login-page {
   position: relative;
   width: 100%;
@@ -164,13 +176,12 @@ const login = async () => {
 }
 
 .background-1 {
-  background-image: url('@/assets/digimon-background-ifqffin4g94gi7d2.jpg');
-  animation: fadeInOut 6s ease-in-out infinite;
+  animation: fadeInOut 8s ease-in-out infinite;
   z-index: 0;
 }
 
 .background-2 {
-  background-image: url('@/assets/the-digimon-adventure-tri-family-bg2jhentpwcmsu04.jpg');
+  animation: fadeInOutReverse 8s ease-in-out infinite;
   z-index: 1;
 }
 
