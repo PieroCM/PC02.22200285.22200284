@@ -133,12 +133,14 @@ const login = async () => {
 
 <style scoped lang="scss">
 @keyframes fadeInOut {
-  0%,
-  100% {
+  0% {
     opacity: 1;
   }
   50% {
     opacity: 0;
+  }
+  100% {
+    opacity: 1;
   }
 }
 
@@ -150,6 +152,7 @@ const login = async () => {
   align-items: center;
   justify-content: center;
   overflow: hidden;
+  background-color: #000;
 }
 
 .background-image {
@@ -161,17 +164,18 @@ const login = async () => {
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
+  will-change: opacity;
 }
 
 .background-1 {
-  background-image: url('@/assets/digimon-background-ifqffin4g94gi7d2.jpg');
+  background-image: url('../../assets/digimon-background-ifqffin4g94gi7d2.jpg');
+  z-index: 1;
   animation: fadeInOut 6s ease-in-out infinite;
-  z-index: 0;
 }
 
 .background-2 {
-  background-image: url('@/assets/the-digimon-adventure-tri-family-bg2jhentpwcmsu04.jpg');
-  z-index: 1;
+  background-image: url('../../assets/the-digimon-adventure-tri-family-bg2jhentpwcmsu04.jpg');
+  z-index: 0;
 }
 
 .background-overlay {
