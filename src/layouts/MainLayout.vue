@@ -1,81 +1,49 @@
 <template>
   <q-layout view="lHh Lpr lFf">
-    <q-header elevated>
+    <!-- Header / Barra superior -->
+    <q-header elevated class="bg-primary text-white">
       <q-toolbar>
-        <q-btn flat dense round icon="menu" aria-label="Menu" @click="toggleLeftDrawer" />
+        <q-toolbar-title class="text-h5 text-weight-bold">
+          Digimon API Frontend
+        </q-toolbar-title>
 
-        <q-toolbar-title> Quasar App </q-toolbar-title>
-
-        <div>Quasar v{{ $q.version }}</div>
+        <!-- Botón de cerrar sesión (placeholder para tu compañera) -->
+        <q-btn
+          flat
+          dense
+          icon="logout"
+          label="Cerrar sesión"
+          class="q-ml-md"
+          @click="handleLogout"
+        />
       </q-toolbar>
     </q-header>
 
-    <q-drawer v-model="leftDrawerOpen" show-if-above bordered>
-      <q-list>
-        <q-item-label header> Essential Links </q-item-label>
-
-        <EssentialLink v-for="link in linksList" :key="link.title" v-bind="link" />
-      </q-list>
-    </q-drawer>
-
+    <!-- Contenedor principal de las páginas -->
     <q-page-container>
       <router-view />
     </q-page-container>
   </q-layout>
 </template>
 
-<script setup>
-import { ref } from 'vue'
-import EssentialLink from 'components/EssentialLink.vue'
+<script>
+export default {
+  name: 'MainLayout',
 
-const linksList = [
-  {
-    title: 'Docs',
-    caption: 'quasar.dev',
-    icon: 'school',
-    link: 'https://quasar.dev',
-  },
-  {
-    title: 'Github',
-    caption: 'github.com/quasarframework',
-    icon: 'code',
-    link: 'https://github.com/quasarframework',
-  },
-  {
-    title: 'Discord Chat Channel',
-    caption: 'chat.quasar.dev',
-    icon: 'chat',
-    link: 'https://chat.quasar.dev',
-  },
-  {
-    title: 'Forum',
-    caption: 'forum.quasar.dev',
-    icon: 'record_voice_over',
-    link: 'https://forum.quasar.dev',
-  },
-  {
-    title: 'Twitter',
-    caption: '@quasarframework',
-    icon: 'rss_feed',
-    link: 'https://twitter.quasar.dev',
-  },
-  {
-    title: 'Facebook',
-    caption: '@QuasarFramework',
-    icon: 'public',
-    link: 'https://facebook.quasar.dev',
-  },
-  {
-    title: 'Quasar Awesome',
-    caption: 'Community Quasar projects',
-    icon: 'favorite',
-    link: 'https://awesome.quasar.dev',
-  },
-]
-
-const leftDrawerOpen = ref(false)
-
-function toggleLeftDrawer() {
-  leftDrawerOpen.value = !leftDrawerOpen.value
+  methods: {
+    // Función placeholder para cerrar sesión
+    // Tu compañera puede implementar la lógica aquí
+    handleLogout() {
+      console.log('Cerrar sesión - Implementar lógica aquí')
+      // Ejemplo: this.$router.push('/login')
+    }
+  }
 }
 </script>
+
+<style scoped>
+/* Estilos generales del layout */
+.q-layout {
+  background-color: #f5f5f5;
+}
+</style>

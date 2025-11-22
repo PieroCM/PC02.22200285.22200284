@@ -2,7 +2,18 @@ const routes = [
   {
     path: '/',
     component: () => import('layouts/MainLayout.vue'),
-    children: [{ path: '', component: () => import('pages/IndexPage.vue') }],
+    children: [
+      // Página inicial (IndexPage)
+      { 
+        path: '', 
+        component: () => import('pages/IndexPage.vue') 
+      },
+      // Página de Digimons (tu parte)
+      { 
+        path: 'digimons', 
+        component: () => import('pages/DigimonPage/DigimonPage.vue') 
+      }
+    ],
   },
 
   // Always leave this as last one,
