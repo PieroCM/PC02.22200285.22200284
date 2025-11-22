@@ -33,5 +33,22 @@ export default defineRouter(function (/* { store, ssrContext } */) {
     history: createHistory(process.env.VUE_ROUTER_BASE),
   })
 
+  // Guard de protección de rutas
+  Router.beforeEach((to, from, next) => {
+    const isLogged = localStorage.getItem('isLogged') === 'true'
+    const requiresAuth = to.matched.some(record => record.meta.requiresAuth)
+
+    if (requiresAuth && !isLogged) {
+      // Si la ruta requiere autenticación y no está logueado, redirigir a login
+      next('/login')
+    } else if (to.path === '/login' && isLogged) {
+      // Si ya está logueado e intenta ir a login, redirigir a digimons
+      next('/digimons')
+    } else {
+      // Permitir navegación
+      next()
+    }
+  })
+
   return Router
 })
